@@ -6,7 +6,9 @@
  * Date: 2019-01-06
  * Time: 21:49
  */
-require_once __DIR__.'/../../vendor/autoload.php';
+
+
+require_once getcwd().'/vendor/autoload.php';
 go(function() {
-    require_once __DIR__.'/../../vendor/bin/phpunit';
+    require_once getcwd().'/vendor/bin/phpunit';
 });
