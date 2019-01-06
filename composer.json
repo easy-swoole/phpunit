@@ -14,5 +14,9 @@
     "require": {
         "phpunit/phpunit": "^7.5",
         "ext-swoole": "^4.2.6"
-    }
+    },
+    "bin": [
+        "bin/co-phpunit"
+    ]
+
 }
