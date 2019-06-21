@@ -11,7 +11,7 @@
 require_once getcwd().'/vendor/autoload.php';
 go(function() {
     try{
-        PHPUnit\TextUI\Command::main(false);
+        PHPUnit\TextUI\Command::main();
     }catch (\Throwable $throwable){
 
     }
