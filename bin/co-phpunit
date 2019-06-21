@@ -10,5 +10,9 @@
 
 require_once getcwd().'/vendor/autoload.php';
 go(function() {
-    require_once getcwd().'/vendor/bin/phpunit';
+    try{
+        PHPUnit\TextUI\Command::main(false);
+    }catch (\Throwable $throwable){
+
+    }
 });
