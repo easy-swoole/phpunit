@@ -8,6 +8,9 @@
  */
 
 
+use PHPUnit\TextUI\Command;
+use \Swoole\Coroutine\Scheduler;
+
 require_once getcwd().'/vendor/autoload.php';
 /*
  * 允许自动的执行一些初始化操作，只初始化一次
@@ -15,10 +18,17 @@ require_once getcwd().'/vendor/autoload.php';
 if(file_exists(getcwd().'/phpunit.php')){
     require_once getcwd().'/phpunit.php';
 }
-go(function() {
+$scheduler = new Scheduler();
+$scheduler->add(function() {
     try{
-        PHPUnit\TextUI\Command::main();
+        PHPUnit\TextUI\Command::main(false);
     }catch (\Throwable $throwable){
-
+        /*
+         * 屏蔽swoole exit报错
+         */
+        if(!$throwable instanceof Swoole\ExitException){
+            trigger_error("{$throwable->getMessage()} at file {$throwable->getFile()} line {$throwable->getLine()}");
+        }
     }
 });
+$scheduler->start();
