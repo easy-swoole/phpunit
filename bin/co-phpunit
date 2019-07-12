@@ -7,9 +7,9 @@
  * Time: 21:49
  */
 
-
 use PHPUnit\TextUI\Command;
-use \Swoole\Coroutine\Scheduler;
+use Swoole\Coroutine\Scheduler;
+use Swoole\Timer;
 
 require_once getcwd().'/vendor/autoload.php';
 /*
@@ -30,5 +30,6 @@ $scheduler->add(function() {
             trigger_error("{$throwable->getMessage()} at file {$throwable->getFile()} line {$throwable->getLine()}");
         }
     }
+    Timer::clearAll();
 });
 $scheduler->start();
