@@ -7,9 +7,8 @@
  * Time: 21:49
  */
 
-use PHPUnit\TextUI\Command;
 use Swoole\Coroutine\Scheduler;
-use Swoole\Timer;
+use EasySwoole\Phpunit\Runner;
 
 require_once getcwd().'/vendor/autoload.php';
 /*
@@ -20,16 +19,6 @@ if(file_exists(getcwd().'/phpunit.php')){
 }
 $scheduler = new Scheduler();
 $scheduler->add(function() {
-    try{
-        PHPUnit\TextUI\Command::main(false);
-    }catch (\Throwable $throwable){
-        /*
-         * 屏蔽swoole exit报错
-         */
-        if(!$throwable instanceof Swoole\ExitException){
-            trigger_error("{$throwable->getMessage()} at file {$throwable->getFile()} line {$throwable->getLine()}");
-        }
-    }
-    Timer::clearAll();
+    Runner::run();
 });
 $scheduler->start();
