@@ -11,6 +11,8 @@ composer require easyswoole/phpunit
 执行
 ```
 ./vendor/bin/co-phpunit tests
+./vendor/bin/co-phpunit tests --no-coroutine //不带协程环境
+
 ```
 
 > tests为你写的测试文件的目录，可以自定义

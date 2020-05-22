@@ -21,7 +21,7 @@ if(file_exists(getcwd().'/phpunit.php')){
 * 清除输入变量
 */
 global $argv;
-$key = array_search('no-coroutine',$argv);
+$key = array_search('--no-coroutine',$argv);
 $noCoroutine = false;
 if($key){
     unset($argv[$key]);
