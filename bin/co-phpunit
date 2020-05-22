@@ -7,7 +7,7 @@
  * Time: 21:49
  */
 
-use Swoole\Coroutine\Scheduler;
+
 use EasySwoole\Phpunit\Runner;
 
 require_once getcwd().'/vendor/autoload.php';
@@ -17,8 +17,15 @@ require_once getcwd().'/vendor/autoload.php';
 if(file_exists(getcwd().'/phpunit.php')){
     require_once getcwd().'/phpunit.php';
 }
-$scheduler = new Scheduler();
-$scheduler->add(function() {
-    Runner::run();
-});
-$scheduler->start();
+/*
+* 清除输入变量
+*/
+global $argv;
+$key = array_search('no-coroutine',$argv);
+$noCoroutine = false;
+if($key){
+    unset($argv[$key]);
+    $noCoroutine = true;
+}
+$_SERVER['argv'] = $argv;
+Runner::run($noCoroutine);
