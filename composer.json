@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "^7.5",
-        "ext-swoole": "^4.4.0"
+        "ext-swoole": "^4.4.0",
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
         "psr-4": {
