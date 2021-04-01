@@ -15,7 +15,7 @@ class Runner
     {
         if($noCoroutine){
             try{
-                Command::main(false);
+                return Command::main(false);
             }catch (\Throwable $throwable){
                 /*
                  * 屏蔽swoole exit报错
@@ -27,11 +27,15 @@ class Runner
                 Timer::clearAll();
             }
         }else{
+            $exitCode = null;
+
             $scheduler = new Scheduler();
-            $scheduler->add(function() {
-                Runner::run();
+            $scheduler->add(function() use (&$exitCode) {
+                $exitCode = Runner::run();
             });
             $scheduler->start();
+
+            return $exitCode;
         }
 
     }

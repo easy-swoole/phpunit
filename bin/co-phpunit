@@ -28,4 +28,9 @@ if($key){
     $noCoroutine = true;
 }
 $_SERVER['argv'] = $argv;
-Runner::run($noCoroutine);
+
+$exitCode = Runner::run($noCoroutine);
+
+if ($exitCode > 0) {
+    die($exitCode);
+}
