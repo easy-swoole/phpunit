@@ -13,30 +13,29 @@ class Runner
 {
     public static function run($noCoroutine = true)
     {
-        if($noCoroutine){
-            try{
-                return Command::main(false);
-            }catch (\Throwable $throwable){
-                /*
-                 * 屏蔽swoole exit报错
-                 */
-                if(!$throwable instanceof ExitException){
-                    throw $throwable;
-                }
-            }finally{
-                Timer::clearAll();
-            }
-        }else{
-            $exitCode = null;
-
-            $scheduler = new Scheduler();
-            $scheduler->add(function() use (&$exitCode) {
-                $exitCode = Runner::run();
-            });
-            $scheduler->start();
-
-            return $exitCode;
+        if ($noCoroutine) {
+            return Command::main(false);
         }
 
+
+        $exitCode = null;
+        $scheduler = new Scheduler();
+        $scheduler->add(function () use (&$exitCode) {
+            try {
+                $exitCode = Command::main(false);
+            } catch (\Throwable $throwable) {
+                /**
+                 * 屏蔽 swoole exit错误
+                 */
+                if (!strpos($throwable->getMessage(),'swoole exit') === false) {
+                    throw $throwable;
+                }
+            } finally {
+                Timer::clearAll();
+            }
+        });
+        $scheduler->start();
+
+        return $exitCode;
     }
 }
