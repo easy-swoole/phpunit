@@ -24,4 +24,4 @@ $caller->setScript(current($argv));
 $caller->setCommand(next($argv));
 $caller->setParams($argv);
 reset($argv);
-CommandManager::getInstance()->run($caller);
+echo CommandManager::getInstance()->run($caller);
