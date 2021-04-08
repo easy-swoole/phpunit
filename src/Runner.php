@@ -27,7 +27,7 @@ class Runner
                 /**
                  * 屏蔽 swoole exit错误
                  */
-                if (!strpos($throwable->getMessage(),'swoole exit') === false) {
+                if (strpos($throwable->getMessage(),'swoole exit') === false) {
                     throw $throwable;
                 }
             } finally {
