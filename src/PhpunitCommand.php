@@ -23,7 +23,7 @@ class PhpunitCommand implements CommandInterface
 
     public function desc(): string
     {
-        return 'Unit testing';
+        return 'PHP Unit Testing, Support Coroutine and No-Coroutine Testing.';
     }
 
     public function exec(): ?string
